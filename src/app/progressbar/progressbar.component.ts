@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, computed, OnInit, signal} from '@angular/core';
+
+const TEAM_ID = '0265505c-7a10-4dee-a0c9-89fad125a2c8';
 
 @Component({
     selector: 'app-progressbar',
@@ -8,41 +10,26 @@ import {Component, OnInit} from '@angular/core';
     styleUrl: './progressbar.component.scss'
 })
 export class ProgressbarComponent implements OnInit {
+
+    progress = signal(0);
+    percentageProgress = computed(() => Math.min((this.progress() / 2750) * 100, 100));
+
     ngOnInit(): void {
-        this.fetchDonationAmount().then();
+        this.fetchDonationAmount();
     }
 
     parseCurrency(currencyStr: string): number | null {
         const cleanedStr = currencyStr.replace(/[€\s]/g, '');
 
-        // Replace comma with dot for decimal
-        const normalizedStr = cleanedStr.replace(',', '.');
-
         // Parse the string to a float
-        const parsedNumber = parseFloat(normalizedStr) * 1000;
+        const parsedNumber = parseFloat(cleanedStr.replace(',', '.'));
 
         return isNaN(parsedNumber) ? null : parsedNumber;
     }
 
-    updateProgressBar(currencyStr: string) {
-        const max = 2750;
-        const value = this.parseCurrency(currencyStr);
-
-        // Calculate percentage
-        const percentage = value ? Math.min((value / max) * 100, 100) : 0;
-
-        // Update progress bar width
-        const progressBar = document.getElementById('progress-bar');
-        //progressBar.style.width = `${percentage}%`;
-
-        // Update progress label
-        const progressLabel = document.getElementById('progress-label');
-        //progressLabel.textContent = `Huidige donaties: ${percentage.toFixed(2)}% - €${value} van €${max}`;
-    }
-
     async fetchDonationAmount() {
         try {
-            const kotkUrl = 'https://www.komoptegenkanker.be/de-100km-run/steun-een-team/e6ab5947-7a93-4a05-bced-978892732137';
+            const kotkUrl = 'https://www.komoptegenkanker.be/de-100km-run/steun-een-team/' + TEAM_ID;
             const url = 'https://corsproxy.io/?' + encodeURIComponent(kotkUrl);
             const response = await fetch(url);
 
@@ -55,11 +42,11 @@ export class ProgressbarComponent implements OnInit {
             const doc = parser.parseFromString(htmlText, 'text/html');
             const currencyStr = doc.querySelector('.amount')?.textContent;
             if (currencyStr) {
-                this.updateProgressBar(currencyStr);
+                const parsed = this.parseCurrency(currencyStr) || 0;
+                this.progress.set(parsed);
             }
         } catch (error) {
             console.error('Er was een probleem met het ophalen van het donatiebedrag:', error);
-            //document.getElementById('donation-amount').textContent = 'Fout bij het ophalen van het donatiebedrag.';
         }
     }
 
