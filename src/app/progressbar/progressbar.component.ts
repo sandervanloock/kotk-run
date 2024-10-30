@@ -1,11 +1,15 @@
 import {Component, computed, OnInit, signal} from '@angular/core';
+import {MatCard, MatCardContent} from "@angular/material/card";
 
 const TEAM_ID = '0265505c-7a10-4dee-a0c9-89fad125a2c8';
 
 @Component({
     selector: 'app-progressbar',
     standalone: true,
-    imports: [],
+    imports: [
+        MatCard,
+        MatCardContent
+    ],
     templateUrl: './progressbar.component.html',
     styleUrl: './progressbar.component.scss'
 })

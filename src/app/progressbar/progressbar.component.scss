@@ -1,3 +1,9 @@
+.wrapper {
+  text-align: center;
+  margin: 0 20px;
+  background-color: white;
+}
+
 .progress-bar-container {
   width: 100%;
   background-color: #e0e0e0;
@@ -8,9 +14,9 @@
 
 .progress-bar {
   height: 20px;
-  width: 0%;
+  width: 0;
   position: relative;
-  background-color: #4caf50;
+  background-color: #fcb514;
   overflow: hidden;
   transition: width 0.5s ease;
 }
@@ -45,8 +51,8 @@
   }
 }
 
-#progress-label {
+.progress-label {
   text-align: center;
-  margin-top: 5px;
-  font-size: 14px;
+  margin-top: 15px;
+  font-size: 18px;
 }

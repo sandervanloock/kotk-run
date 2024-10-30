@@ -1,8 +1,12 @@
-<div class="progress-bar-container">
-    <div [style.width.%]="this.percentageProgress()" class="progress-bar" id="progress-bar">
-        <div class="stripes"></div>
-    </div>
-</div>
-<p id="progress-label">
-    {{ this.progress() }} € ingezameld
-</p>
+<mat-card appearance="raised" class="wrapper">
+    <mat-card-content>
+        <div class="progress-bar-container">
+            <div [style.width.%]="this.percentageProgress()" class="progress-bar" id="progress-bar">
+                <div class="stripes"></div>
+            </div>
+        </div>
+        <p class="progress-label">
+            {{ this.progress() }} € ingezameld
+        </p>
+    </mat-card-content>
+</mat-card>

@@ -1,10 +1,21 @@
-.btn-cont {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+mat-card {
+  background-color: white;
 }
 
-mat-flat-button {
-  font-size: x-large;
-  text-align: center;
+.form-content {
+
+  h2 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+
 }
