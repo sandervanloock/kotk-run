@@ -26,7 +26,7 @@ export class ProgressbarComponent implements OnInit {
         const cleanedStr = currencyStr.replace(/[€\s]/g, '');
 
         // Parse the string to a float
-        const parsedNumber = parseFloat(cleanedStr.replace(',', '.'));
+        const parsedNumber = parseFloat(cleanedStr.replace('.', '').replace(',', '.'));
 
         return isNaN(parsedNumber) ? null : parsedNumber;
     }
